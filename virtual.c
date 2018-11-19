@@ -3,6 +3,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+//Tabela de página conterá todas as infos importantes para substituição de páginas
+typedef struct tabelaPagina {
+	
+
+} TabelaPagina;
+
 void trataEntradas (char *tipoAlgo, int paginaTam,int tamMemoFis)
 {
 	//Testando algoritmo
@@ -28,6 +34,31 @@ void trataEntradas (char *tipoAlgo, int paginaTam,int tamMemoFis)
 	printf("Entradas perfeitas\n");
 	
 }
+int * criaVetorPaginas(int tamMemoFis,int paginaTam)
+{
+	int tamVetor,i;
+	tamVetor = tamMemoFis/paginaTam;
+
+	//Alocando memória para vetor de páginas
+	int *vet = (int *)malloc(sizeof(int) * tamVetor);
+	if(vet == NULL) 
+	{
+		printf("Erro no malloc\n");
+		exit(1);
+	}
+	//Inicializa vetor de páginas com -1
+	for(i = 0; i < tamVetor; i++) 
+	{
+		vet[i] = -1;
+	}
+
+	return vet;
+}
+TabelaPagina * criaVetTabelaPaginas(int tamPag)
+{
+	//Fazer calculo para descobrir tamanho
+	return NULL;
+}
 int main(int argc, char *argv[])
 {
 	// LRU ou NRU
@@ -36,22 +67,23 @@ int main(int argc, char *argv[])
 
 	FILE *arq;
 	unsigned addr, page;
-	char tipoAlgo[5], path[20];
-	int paginaTam, tamMemoFis;
+	char tipoAlgo[5], path[30];
+	int tamPag, tamMemoFis;
 	int pageFault = 0; //Contador de page fault
 	int pageWritten = 0; //Contador de páginas escritas 
 	int debug = 0;
 	int passo = 0;
 
-	int *vetorPaginas;
-	int vetorPaginasTam;
-
+	int *vetPag; // vetor de páginas
+	TabelaPagina *vetTabelaPaginas; //Vetor de tabela de página
 	// Trata input
+	strcpy(path,"arquivos/");
 
 	strcpy(tipoAlgo, argv[1]); //pode ser LRU ou NRU
-	strcpy(path, argv[2]); //O path do .log
 
-	paginaTam =  atoi(argv[3]); //Tamanho da página pode ser 8 a 32Kb
+	strcat(path, argv[2]); //O path do .log
+
+	tamPag =  atoi(argv[3]); //Tamanho da página pode ser 8 a 32Kb
 	tamMemoFis = atoi(argv[4]) ; //Tamanho da memória fisica pode ser de 1Mb a 16Mb
 
 	if(argc > 5) 
@@ -75,7 +107,13 @@ int main(int argc, char *argv[])
 
 	}
 	//Testa para ver se entradas estão corretas
-	trataEntradas (tipoAlgo,paginaTam,tamMemoFis);
+	trataEntradas (tipoAlgo,tamPag,tamMemoFis);
+	
+	//Cria vetor de páginas
+	vetPag = criaVetorPaginas(tamMemoFis,tamPag);
+
+	// Cria vetor de tabela de paginas
+	vetTabelaPaginas = criaVetTabelaPaginas(tamPag);
 
 	return 0;
 }
