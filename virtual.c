@@ -5,7 +5,9 @@
 #include <math.h>
 //Tabela de página conterá todas as infos importantes para substituição de páginas
 typedef struct tabelaPagina {
-	
+    int R; //Página referenciada
+    int M; //Página modificada
+    int ultimoAcesso; //Ultimo acesso à memória
 
 } TabelaPagina;
 
@@ -34,45 +36,80 @@ void trataEntradas (char *tipoAlgo, int paginaTam,int tamMemoFis)
 	printf("Entradas perfeitas\n");
 	
 }
-int * criaVetorPaginas(int tamMemoFis,int paginaTam)
-{
-	int tamVetor,i;
-	tamVetor = tamMemoFis/paginaTam;
 
+
+int * criaVetorPaginas(int tamMemoFis,int paginaTam, int tamVetPags)
+{
+	int i;
+        
 	//Alocando memória para vetor de páginas
-	int *vet = (int *)malloc(sizeof(int) * tamVetor);
+	int *vet = (int *)malloc(sizeof(int) * tamVetPags);
 	if(vet == NULL) 
 	{
 		printf("Erro no malloc\n");
 		exit(1);
 	}
 	//Inicializa vetor de páginas com -1
-	for(i = 0; i < tamVetor; i++) 
+	for(i = 0; i < tamVetPags; i++) 
 	{
 		vet[i] = -1;
 	}
 
 	return vet;
 }
+
+
 TabelaPagina * criaVetTabelaPaginas(int tamPag)
 {
-	//Fazer calculo para descobrir tamanho
-	return NULL;
+	//Fazer calculo para descobrir tamanho DESCOBRIR O PORQUÊ
+	int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
+        TabelaPagina *vetTabelaPaginas;
+        printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
+        
+        vetTabelaPaginas = (TabelaPagina*)malloc(sizeof(TabelaPagina)*tamTabela);
+        if(vetTabelaPaginas == NULL) 
+        {
+		printf("Erro na alocacao do vetor de tabela de paginas\n");
+		exit(1);
+        }
+        
+        //TINHA MEMSET AQUI
+        return vetTabelaPaginas;
 }
+
+//Essa função vê se o indice da página já está guardadp no vetor de páginas
+int buscaPagina(int *vetorPaginas, int tamVetPags, int indicePagina) {
+	int i;
+	for(i = 0; i < tamVetPags; i++) 
+        {
+		if(vetorPaginas[i] == indicePagina)
+                {
+			return 1;
+		}
+	}
+	return -1;
+}
+
+
+//Esperando entradas no terminal como:
+// sim-virtual LRU arquivo.log 16 128
 int main(int argc, char *argv[])
 {
 	// LRU ou NRU
 	// Tamanhos de pagina : 8 a 32 K
 	//Memória fisica: 1Mb a 16 Mb
 
-	FILE *arq;
-	unsigned addr, page;
+	FILE *entrada;
+	unsigned int addr;
 	char tipoAlgo[5], path[30];
-	int tamPag, tamMemoFis;
+	int tamPag, tamMemoFis,tamVetPags;
 	int pageFault = 0; //Contador de page fault
 	int pageWritten = 0; //Contador de páginas escritas 
 	int debug = 0;
 	int passo = 0;
+        int flagEstaNaMemoria;
+        unsigned int indicePag;
+        char rw;
 
 	int *vetPag; // vetor de páginas
 	TabelaPagina *vetTabelaPaginas; //Vetor de tabela de página
@@ -82,6 +119,8 @@ int main(int argc, char *argv[])
 	strcpy(tipoAlgo, argv[1]); //pode ser LRU ou NRU
 
 	strcat(path, argv[2]); //O path do .log
+        
+         printf("Path eh: %s\n",path);
 
 	tamPag =  atoi(argv[3]); //Tamanho da página pode ser 8 a 32Kb
 	tamMemoFis = atoi(argv[4]) ; //Tamanho da memória fisica pode ser de 1Mb a 16Mb
@@ -110,10 +149,39 @@ int main(int argc, char *argv[])
 	trataEntradas (tipoAlgo,tamPag,tamMemoFis);
 	
 	//Cria vetor de páginas
-	vetPag = criaVetorPaginas(tamMemoFis,tamPag);
+        tamVetPags = tamMemoFis/tamPag; //Descobrindo tamanho do vetor
+	vetPag = criaVetorPaginas(tamMemoFis,tamPag,tamVetPags);
 
 	// Cria vetor de tabela de paginas
 	vetTabelaPaginas = criaVetTabelaPaginas(tamPag);
+        
+        entrada = fopen(path,"r");
+        if (entrada == NULL)
+        {
+            printf("Erro ao abrir arquivo de entrada\n");
+            exit(1);
+        }
+        
+        //  Processo de leitura do arquivo
+        while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
+        {
+            printf("Shiftado %d\n",(int)log2(tamPag*1000));
+            printf("Indice da primeira página eh: %d\n",indicePag);
+            
+            //Conta para achar indice da página
+            indicePag = addr >> (int)log2(tamPag*1000);
+            
+            //Verificando se indice já está memória
+            flagEstaNaMemoria = buscaPagina(vetPag,tamVetPags,indicePag);
+            
+            //Se a pagina não estiver já na memória
+            if(flagEstaNaMemoria == -1)
+            {
+                //Procurar pagina para ser removida dependendo do algoritmo desejado
+                //escolherRemoverPagina(tipoAlgo,vetTabelaPaginas,vetPag,tamVetPags);
+            }
+            
+        }
 
 	return 0;
 }
