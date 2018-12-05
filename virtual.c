@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+
 //Tabela de página conterá todas as infos importantes para substituição de páginas
 typedef struct tabelaPagina {
     int R; //Página referenciada
@@ -38,7 +39,7 @@ void trataEntradas (char *tipoAlgo, int paginaTam,int tamMemoFis)
 }
 
 
-int * criaVetorPaginas(int tamMemoFis,int paginaTam, int tamVetPags)
+int * criaVetorPaginas(int tamVetPags) 
 {
 	int i;
         
@@ -61,8 +62,9 @@ int * criaVetorPaginas(int tamMemoFis,int paginaTam, int tamVetPags)
 
 TabelaPagina * criaVetTabelaPaginas(int tamPag)
 {
-	//Fazer calculo para descobrir tamanho DESCOBRIR O PORQUÊ
-	int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
+		//Fazer calculo para descobrir tamanho DESCOBRIR O PORQUÊ
+		int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
+		int i;
         TabelaPagina *vetTabelaPaginas;
         printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
         
@@ -72,23 +74,36 @@ TabelaPagina * criaVetTabelaPaginas(int tamPag)
 		printf("Erro na alocacao do vetor de tabela de paginas\n");
 		exit(1);
         }
-        
-        //TINHA MEMSET AQUI
+        for(i = 0; i < tamTabela; i++)
+		{
+			TabelaPagina pag = vetTabelaPaginas[i];
+			pag.R = 0;
+			pag.M = 0;
+			pag.ultimoAcesso = 0; 
+		}
         return vetTabelaPaginas;
 }
 
 
 int buscaOutroEspacoNoVetor(int *vetPag,int tamVetPags)
 {
-    return 1;
+    int i;
+	for(i = 0; i < tamVetPags; i++) 
+	{
+		if(vetPag[i] == -1)
+		{
+			return i;
+		}	
+	}
+	return -1;
 }
 //Essa função vê se o indice da página já está guardado no vetor de páginas
 int buscaPagina(int *vetPag, int tamVetPags, int indicePagina) {
 	int i;
 	for(i = 0; i < tamVetPags; i++) 
-        {
+   	{
 		if(vetPag[i] == indicePagina)
-                {
+    	{
 			return 1;
 		}
 	}
@@ -116,6 +131,7 @@ int removeLRU(TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
 
 int removeNRU(TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
 {
+	
     return 1;
 }
 int escolherRemoverPagina(char * tipoAlgo,TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
@@ -149,10 +165,10 @@ int main(int argc, char *argv[])
 	int pageWritten = 0; //Contador de páginas escritas 
 	int debug = 0;
 	int passo = 0;
-        int flagEstaNaMemoria;
-        unsigned int indicePag;
-        char rw;
-        int tempo = 0; //Tempo usado para conferir ultimo acesso
+    int flagEstaNaMemoria;
+    unsigned int indicePag;
+    char rw;
+    int tempo = 0; //Tempo usado para conferir ultimo acesso
 
 	int *vetPag; // vetor de páginas
 	TabelaPagina *vetTabelaPaginas; //Vetor de tabela de página
@@ -164,7 +180,7 @@ int main(int argc, char *argv[])
 
 	strcat(path, argv[2]); //O path do .log
         
-         printf("Path eh: %s\n",path);
+    printf("Path eh: %s\n",path);
 
 	tamPag =  atoi(argv[3]); //Tamanho da página pode ser 8 a 32Kb
 	tamMemoFis = atoi(argv[4]) ; //Tamanho da memória fisica pode ser de 1Mb a 16Mb
@@ -193,91 +209,94 @@ int main(int argc, char *argv[])
 	trataEntradas (tipoAlgo,tamPag,tamMemoFis);
 	
 	//Cria vetor de páginas
-        tamVetPags = tamMemoFis/tamPag; //Descobrindo tamanho do vetor
-	vetPag = criaVetorPaginas(tamMemoFis,tamPag,tamVetPags);
+    tamVetPags = tamMemoFis/tamPag; //Descobrindo tamanho do vetor
+	vetPag = criaVetorPaginas(tamVetPags);
 
 	// Cria vetor de tabela de paginas
 	vetTabelaPaginas = criaVetTabelaPaginas(tamPag);
         
-        entrada = fopen(path,"r");
-        if (entrada == NULL)
-        {
-            printf("Erro ao abrir arquivo de entrada\n");
-            exit(1);
-        }
+    entrada = fopen(path,"r");
+    if (entrada == NULL)
+    {
+    	printf("Erro ao abrir arquivo de entrada\n");
+        exit(1);
+    }
         
-        //  Processo de leitura do arquivo
-        while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
+    //  Processo de leitura do arquivo
+    while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
+    {
+    	printf("Shiftado %d\n",(int)log2(tamPag*1000));
+    	printf("Indice da primeira página eh: %d\n",indicePag);
+            
+        //Conta para achar indice da página
+        indicePag = addr >> (int)log2(tamPag*1000);
+            
+        //Verificando se indice já está memória
+        flagEstaNaMemoria = buscaPagina(vetPag,tamVetPags,indicePag);
+            
+        //Se a pagina não estiver já na memória
+        if(flagEstaNaMemoria == -1)
         {
-            printf("Shiftado %d\n",(int)log2(tamPag*1000));
-            printf("Indice da primeira página eh: %d\n",indicePag);
-            
-            //Conta para achar indice da página
-            indicePag = addr >> (int)log2(tamPag*1000);
-            
-            //Verificando se indice já está memória
-            flagEstaNaMemoria = buscaPagina(vetPag,tamVetPags,indicePag);
-            
-            //Se a pagina não estiver já na memória
-            if(flagEstaNaMemoria == -1)
-            {
-                int pos;
-                //Procura espaco vazio no vetor
-                pos = buscaOutroEspacoNoVetor(vetPag,tamVetPags);
+        	int pos;
+        	//Procura espaco vazio no vetor
+            pos = buscaOutroEspacoNoVetor(vetPag,tamVetPags);
                 
-                //Se tiver espaco vazio no vetor coloca página nele
-                if(pos != -1)
-                {
-                    vetPag[pos] = indicePag;
-                }
-                //Se não tiver mais espaço deveremos remover alguma página para dar espaço
-                else
-                {
-                    //Procurar pagina para ser removida dependendo do algoritmo desejado
-                    escolherRemoverPagina(tipoAlgo,vetTabelaPaginas,vetPag,tamVetPags);
-                    
-                    //Antes de trocar página guardar o status
-                    if(vetTabelaPaginas[vetPag[pos]].M == 1)
-                    {
-                        //Se a página for modificada
-                        pageWritten++;
-                    }
-                    
-                    vetTabelaPaginas[vetPag[pos]].R = 0;
-                    vetTabelaPaginas[vetPag[pos]].M = 0;
-                    vetPag[pos] = indicePag;
-                    
-                    
-                }
-            }
-            
-            //Atualização da tabela dessa pagina
-            vetTabelaPaginas[indicePag].ultimoAcesso = tempo;
-            
-            //Se a pagina não é lida é porque ela é modificada
-            if(rw == 'R')
+            //Se tiver espaco vazio no vetor coloca página nele
+            if(pos != -1)
             {
-                vetTabelaPaginas[indicePag].R = 1;
+            	vetPag[pos] = indicePag;
             }
+            //Se não tiver mais espaço deveremos remover alguma página para dar espaço
             else
             {
-                vetTabelaPaginas[indicePag].M = 1;
-            }
-                   
-            //Atualiza tempo
-            tempo++;
+            	//Procurar pagina para ser removida dependendo do algoritmo desejado
+            	pos = escolherRemoverPagina(tipoAlgo,vetTabelaPaginas,vetPag,tamVetPags);
+                    
+                //Antes de trocar página guardar o status
+                if(vetTabelaPaginas[vetPag[pos]].M == 1)
+                {
+                	//Se a página for modificada
+                	pageWritten++;
+                }
+                    
+                vetTabelaPaginas[vetPag[pos]].R = 0;
+                vetTabelaPaginas[vetPag[pos]].M = 0;
+                vetPag[pos] = indicePag;
+                    
+         	}
+			pageFault++;
+    	}
+		           
+        //Atualização da tabela dessa pagina
+        vetTabelaPaginas[indicePag].ultimoAcesso = tempo;
+        
+		vetTabelaPaginas[indicePag].R = 1;
+    
+        //Se a pagina não é lida é porque ela é modificada
+        if(rw == 'W')
+        {
+			vetTabelaPaginas[indicePag].M = 1;
+        //	vetTabelaPaginas[indicePag].R = 1;
+        }
+    /*	else
+        {
+            vetTabelaPaginas[indicePag].M = 1;
+        } */
+               
+        //Atualiza tempo
+        tempo++;
             
         }
         printf("Caminho do arquivo de entrada: %s\n", path);
-	printf("Tamanho da memoria fisica: %d KB\n", tamMemoFis);
-	printf("Tamanho das paginas: %d KB\n", tamPag);
+		printf("Tamanho da memoria fisica: %d KB\n", tamMemoFis);
+		printf("Tamanho das paginas: %d KB\n", tamPag);
         printf("Algoritmo de substituicao: %s\n", tipoAlgo);
         
         // Libera toda a memoria alocada
 
 	free(vetTabelaPaginas);
 	free(vetPag);
-        fclose(entrada);
+    fclose(entrada);
 
 	return 0;
 }
