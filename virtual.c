@@ -147,7 +147,15 @@ int escolherRemoverPagina(char * tipoAlgo,TabelaPagina* vetTabelaPaginas,int* ve
     }
     return pos;
 }
-
+void zeraReferencias(int tamPag,TabelaPagina * vetTabelaPag)
+{
+	int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
+	int i;
+	for(i = 0; i < tamTabela ; i++)
+	{
+		vetTabelaPag[i].R = 0;
+	}
+}
 
 //Esperando entradas no terminal como:
 // sim-virtual LRU arquivo.log 16 128
@@ -169,6 +177,7 @@ int main(int argc, char *argv[])
     unsigned int indicePag;
     char rw;
     int tempo = 0; //Tempo usado para conferir ultimo acesso
+	int tempoZeraReferenciadas = 0; //Tempo para zerar as referenciadas
 
 	int *vetPag; // vetor de páginas
 	TabelaPagina *vetTabelaPaginas; //Vetor de tabela de página
@@ -225,6 +234,11 @@ int main(int argc, char *argv[])
     //  Processo de leitura do arquivo
     while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
     {
+		if(tempoZeraReferenciadas >= tamVetPags/2)
+		{
+			zeraReferencias(tamPag,vetTabelaPaginas);
+			tempoZeraReferenciadas = 0;
+		}
     	printf("Shiftado %d\n",(int)log2(tamPag*1000));
     	printf("Indice da primeira página eh: %d\n",indicePag);
             
@@ -272,31 +286,29 @@ int main(int argc, char *argv[])
         
 		vetTabelaPaginas[indicePag].R = 1;
     
-        //Se a pagina não é lida é porque ela é modificada
+        //Se é write a página é modificada
         if(rw == 'W')
         {
 			vetTabelaPaginas[indicePag].M = 1;
-        //	vetTabelaPaginas[indicePag].R = 1;
         }
-    /*	else
-        {
-            vetTabelaPaginas[indicePag].M = 1;
-        } */
                
         //Atualiza tempo
         tempo++;
-            
-        }
-        printf("Caminho do arquivo de entrada: %s\n", path);
-		printf("Tamanho da memoria fisica: %d KB\n", tamMemoFis);
-		printf("Tamanho das paginas: %d KB\n", tamPag);
-        printf("Algoritmo de substituicao: %s\n", tipoAlgo);
+		
+		//Atualiza tempo para zerar
+		tempoZeraReferenciadas++;
         
-        // Libera toda a memoria alocada
+    }
+    printf("Caminho do arquivo de entrada: %s\n", path);
+	printf("Tamanho da memoria fisica: %d KB\n", tamMemoFis);
+	printf("Tamanho das paginas: %d KB\n", tamPag);
+    printf("Algoritmo de substituicao: %s\n", tipoAlgo);
+    
+    // Libera toda a memoria alocada
 
 	free(vetTabelaPaginas);
 	free(vetPag);
-    fclose(entrada);
+	fclose(entrada);
 
 	return 0;
 }
