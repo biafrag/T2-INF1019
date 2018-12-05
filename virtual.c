@@ -37,8 +37,6 @@ void trataEntradas (char *tipoAlgo, int paginaTam,int tamMemoFis)
 	printf("Entradas perfeitas\n");
 	
 }
-
-
 int * criaVetorPaginas(int tamVetPags) 
 {
 	int i;
@@ -58,21 +56,19 @@ int * criaVetorPaginas(int tamVetPags)
 
 	return vet;
 }
-
-
 TabelaPagina * criaVetTabelaPaginas(int tamPag)
 {
-		//Fazer calculo para descobrir tamanho DESCOBRIR O PORQUÊ
+		//Fazer calculo para descobrir tamanho 
 		int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
 		int i;
         TabelaPagina *vetTabelaPaginas;
-        printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
+  //    printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
         
         vetTabelaPaginas = (TabelaPagina*)malloc(sizeof(TabelaPagina)*tamTabela);
         if(vetTabelaPaginas == NULL) 
         {
-		printf("Erro na alocacao do vetor de tabela de paginas\n");
-		exit(1);
+			printf("Erro na alocacao do vetor de tabela de paginas\n");
+			exit(1);
         }
         for(i = 0; i < tamTabela; i++)
 		{
@@ -131,8 +127,22 @@ int removeLRU(TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
 
 int removeNRU(TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
 {
+	int i, criterio;
+	int priorR[] = {0,0,1,1}, priorM[] = {0,1,0,1}; 
 	
-    return 1;
+	for (criterio = 0; criterio<4; criterio++)
+	{
+		for (i=0; i<tamVetPags; i++)
+		{
+			TabelaPagina pag = vetTabelaPaginas[vetPag[i]];
+			// verifica se R e M seguem os critérios do algoritmo
+			if (pag.R == priorR[criterio] && pag.M == priorM[criterio]) //sempre ou só se tempos forem iguais?
+			{
+				return i;
+			}
+		}
+	}	
+    return -1;
 }
 int escolherRemoverPagina(char * tipoAlgo,TabelaPagina* vetTabelaPaginas,int* vetPag,int tamVetPags)
 {
@@ -151,7 +161,7 @@ void zeraReferencias(int tamPag,TabelaPagina * vetTabelaPag)
 {
 	int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
 	int i;
-	for(i = 0; i < tamTabela ; i++)
+	for(i = 0; i < tamTabela; i++)
 	{
 		vetTabelaPag[i].R = 0;
 	}
@@ -239,8 +249,8 @@ int main(int argc, char *argv[])
 			zeraReferencias(tamPag,vetTabelaPaginas);
 			tempoZeraReferenciadas = 0;
 		}
-    	printf("Shiftado %d\n",(int)log2(tamPag*1000));
-    	printf("Indice da primeira página eh: %d\n",indicePag);
+    //	printf("Shiftado %d\n",(int)log2(tamPag*1000));
+    //	printf("Indice da primeira página eh: %d\n",indicePag);
             
         //Conta para achar indice da página
         indicePag = addr >> (int)log2(tamPag*1000);
@@ -303,6 +313,8 @@ int main(int argc, char *argv[])
 	printf("Tamanho da memoria fisica: %d KB\n", tamMemoFis);
 	printf("Tamanho das paginas: %d KB\n", tamPag);
     printf("Algoritmo de substituicao: %s\n", tipoAlgo);
+    printf("Número de falta de páginas: %d\n", pageFault);
+    printf("Número de páginas escritas('sujas'): %d\n", pageWritten);
     
     // Libera toda a memoria alocada
 
