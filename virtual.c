@@ -60,12 +60,13 @@ int * criaVetorPaginas(int tamVetPags)
 TabelaPagina * criaVetTabelaPaginas(int tamPag)
 {
         //Fazer calculo para descobrir tamanho 
-        int tamTabela = pow(2, 32 - (int)log2(tamPag*1000));
+        int tamTabela = pow(2, 32 - (int)(ceil(log2(tamPag*1000))));
         int i;
         TabelaPagina *vetTabelaPaginas;
-  //    printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
+  	    printf("O tamanho da tabela de paginas eh : %d\n",tamTabela);
         
         vetTabelaPaginas = (TabelaPagina*)malloc(sizeof(TabelaPagina)*tamTabela);
+		
         if(vetTabelaPaginas == NULL) 
         {
 			printf("Erro na alocacao do vetor de tabela de paginas\n");
@@ -242,19 +243,18 @@ int main(int argc, char *argv[])
         printf("Erro ao abrir arquivo de entrada\n");
         exit(1);
     }
-    
     //  Processo de leitura do arquivo
     while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
     {
 
 		if (tempoZeraReferenciadas > tamVetPags) 
 		{
-			zeraReferencias(tamPag, vetTabelaPaginas, vetPag);
+			zeraReferencias(tamVetPags, vetTabelaPaginas, vetPag);
 			tempoZeraReferenciadas = 0;
 		} 
 
         //Conta para achar indice da página
-        indicePag = addr >> (int)log2(tamPag*1000);
+        indicePag = addr >> (int)(ceil(log2(tamPag*1000)));
             
         //Verificando se indice já está memória
         
@@ -264,7 +264,7 @@ int main(int argc, char *argv[])
         if(debug || passo) 
         {
 			int i;
-			printf("\nAlgoritmo: %s Time: %d\n", tipoAlgo, tempo);
+			printf("Algoritmo: %s Time: %d\n", tipoAlgo, tempo);
 			printf("Endereco: %x Modo: %c\n", addr, rw);
 			printf("Indice: %d\n", indicePag);
 
@@ -294,11 +294,11 @@ int main(int argc, char *argv[])
             pos = buscaOutroEspacoNoVetor(vetPag,tamVetPags);
                 
             //Se tiver espaco vazio no vetor coloca página nele
-            if(pos != -1)//proxPos < tamVetPags)
+            if(pos != -1 && proxPos+1 < tamVetPags)
             {
-                vetPag[pos]/*proxPos]*/ = indicePag;
-                vetTabelaPaginas[indicePag].indiceNoVetor = pos;//proxPos;
-                //proxPos++;
+                vetPag[proxPos] = indicePag;
+                vetTabelaPaginas[indicePag].indiceNoVetor = proxPos;
+                proxPos++;
             }
             //Se não tiver mais espaço deveremos remover alguma página para dar espaço
             else
@@ -330,12 +330,12 @@ int main(int argc, char *argv[])
 			{
 				printf("Pagina ja esta na memoria.\n");
 			}
-		}
-                        
+		}        
         //Atualização da tabela dessa pagina
         vetTabelaPaginas[indicePag].ultimoAcesso = tempo;
         
         vetTabelaPaginas[indicePag].R = 1;
+ 
     
         //Se é write a página é modificada
         if(rw == 'W')
