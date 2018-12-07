@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
     while(fscanf(entrada,"%x %c",&addr,&rw) == 2) 
     {
 
-        if (tempoZeraReferenciadas > tamVetPags) 
+        if (tempoZeraReferenciadas == tamVetPags) 
         {
                 zeraReferencias(tamVetPags, vetTabelaPaginas, vetPag);
                 tempoZeraReferenciadas = 0;
@@ -327,12 +327,12 @@ int main(int argc, char *argv[])
         	}
         }
         else 
-		{
-			if(debug || passo) 
-			{
-				printf("Pagina ja esta na memoria.\n");
-			}
-		}        
+        {
+                if(debug || passo) 
+                {
+                        printf("Pagina ja esta na memoria.\n");
+                }
+        }        
         //Atualização da tabela dessa pagina
         vetTabelaPaginas[indicePag].ultimoAcesso = tempo;
         
