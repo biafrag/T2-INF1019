@@ -3,32 +3,26 @@
 
 ******************LRU COMPILADOR.LOG 8KB 1024KB
 
-Path eh: logs/compilador.log
-Entradas perfeitas
-
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 524288
 Caminho do arquivo de entrada: logs/compilador.log
-Tamanho da memoria fisica: 1.02 MB
+Tamanho da memoria fisica: 1024 KB
 Tamanho das paginas: 8 KB
 Algoritmo de substituicao: LRU
-Número de falta de páginas: 36870
-Número de páginas escritas('sujas'): 5802
+Número de falta de páginas: 36707
+Número de páginas escritas('sujas'): 5775
 
 
 Simulação encerrada.
 
 *******************LRU COMPILADOR.LOG 8KB 16384KB
 
-Path eh: logs/compilador.log
-Entradas perfeitas
-
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 524288
 Caminho do arquivo de entrada: logs/compilador.log
-Tamanho da memoria fisica: 16.38 MB
+Tamanho da memoria fisica: 16384 KB
 Tamanho das paginas: 8 KB
 Algoritmo de substituicao: LRU
 Número de falta de páginas: 2391
@@ -37,38 +31,33 @@ Número de páginas escritas('sujas'): 263
 
 Simulação encerrada.
 
-***********LRU COMPILADOR.LOG 32KB 1024KB
 
-Path eh: logs/compilador.log
-Entradas perfeitas
+***********LRU COMPILADOR.LOG 32KB 1024KB
 
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 131072
 Caminho do arquivo de entrada: logs/compilador.log
-Tamanho da memoria fisica: 1.02 MB
+Tamanho da memoria fisica: 1024 KB
 Tamanho das paginas: 32 KB
 Algoritmo de substituicao: LRU
-Número de falta de páginas: 61559
-Número de páginas escritas('sujas'): 9553
+Número de falta de páginas: 60336
+Número de páginas escritas('sujas'): 9429
 
 
 Simulação encerrada.
 
 ************LRU COMPILADOR.LOG 32KB 16384KB
 
-Path eh: logs/compilador.log
-Entradas perfeitas
-
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 131072
 Caminho do arquivo de entrada: logs/compilador.log
-Tamanho da memoria fisica: 16.38 MB
+Tamanho da memoria fisica: 16384 KB
 Tamanho das paginas: 32 KB
 Algoritmo de substituicao: LRU
-Número de falta de páginas: 3219
-Número de páginas escritas('sujas'): 768
+Número de falta de páginas: 3204
+Número de páginas escritas('sujas'): 766
 
 
 Simulação encerrada.
@@ -76,32 +65,27 @@ Simulação encerrada.
 /****************************** COMPRESSOR ************************************************/
 
 **********************LRU COMPRESSOR.LOG 8KB 1024KB
-Path eh: logs/compressor.log
-Entradas perfeitas
-
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 524288
 Caminho do arquivo de entrada: logs/compressor.log
-Tamanho da memoria fisica: 1.02 MB
+Tamanho da memoria fisica: 1024 KB
 Tamanho das paginas: 8 KB
 Algoritmo de substituicao: LRU
-Número de falta de páginas: 540
-Número de páginas escritas('sujas'): 135
+Número de falta de páginas: 533
+Número de páginas escritas('sujas'): 132
 
 
 Simulação encerrada.
 
-*******************LRU COMPRESSOR.LOG 8KB 16384KB
 
-Path eh: logs/compressor.log
-Entradas perfeitas
+*******************LRU COMPRESSOR.LOG 8KB 16384KB
 
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 524288
 Caminho do arquivo de entrada: logs/compressor.log
-Tamanho da memoria fisica: 16.38 MB
+Tamanho da memoria fisica: 16384 MB
 Tamanho das paginas: 8 KB
 Algoritmo de substituicao: LRU
 Número de falta de páginas: 255
@@ -110,38 +94,28 @@ Número de páginas escritas('sujas'): 0
 
 Simulação encerrada.
 
-
 **********************LRU COMPRESSOR.LOG 32KB 1024KB
-
-Path eh: logs/compressor.log
-Entradas perfeitas
 
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 131072
 Caminho do arquivo de entrada: logs/compressor.log
-Tamanho da memoria fisica: 1.02 MB
+Tamanho da memoria fisica: 1024 MB
 Tamanho das paginas: 32 KB
 Algoritmo de substituicao: LRU
-Número de falta de páginas: 930
-Número de páginas escritas('sujas'): 352
+Número de falta de páginas: 911
+Número de páginas escritas('sujas'): 345
 
 
 Simulação encerrada.
 
-
-
-
-****************LRU COMPRESSOR.LOG  32KB 1024KB
-
-Path eh: logs/compressor.log
-Entradas perfeitas
+****************LRU COMPRESSOR.LOG  32KB 16384KB
 
 Executando o simulador...
 
 O tamanho da tabela de paginas eh : 131072
 Caminho do arquivo de entrada: logs/compressor.log
-Tamanho da memoria fisica: 16.38 MB
+Tamanho da memoria fisica: 16384 KB
 Tamanho das paginas: 32 KB
 Algoritmo de substituicao: LRU
 Número de falta de páginas: 172
@@ -150,6 +124,389 @@ Número de páginas escritas('sujas'): 0
 
 Simulação encerrada.
 
+/****************************** MATRIZ ************************************************/
 
+**********************LRU MATRIZ.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 10928
+Número de páginas escritas('sujas'): 3273
+
+
+Simulação encerrada.
+
+**********************LRU MATRIZ.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 2214
+Número de páginas escritas('sujas'): 74
+
+
+Simulação encerrada.
+
+
+**********************LRU MATRIZ.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 32282
+Número de páginas escritas('sujas'): 6582
+
+
+Simulação encerrada.
+
+
+**********************LRU MATRIZ.LOG 32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 1950
+Número de páginas escritas('sujas'): 636
+
+
+Simulação encerrada.
+
+/****************************** SIMULADOR ************************************************/
+
+**********************LRU SIMULADOR.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 16479
+Número de páginas escritas('sujas'): 5546
+
+
+Simulação encerrada.
+
+**********************LRU SIMULADOR.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 3405
+Número de páginas escritas('sujas'): 997
+
+
+Simulação encerrada.
+
+**********************LRU SIMULADOR.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 48088
+Número de páginas escritas('sujas'): 10446
+
+
+Simulação encerrada.
+
+
+**********************LRU SIMULADOR.LOG 32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 2997
+Número de páginas escritas('sujas'): 1357
+
+
+Simulação encerrada.
+
+
+************************* COM NRU ***********************
+*
+*
+*
+*
+*
+*********************************************************
+
+/****************************** COMPILADOR ************************************************/
+
+
+******************NRU COMPILADOR.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/compilador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 76618
+Número de páginas escritas('sujas'): 7242
+
+
+Simulação encerrada.
+
+*******************NRU COMPILADOR.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/compilador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 2833
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+***********NRU COMPILADOR.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/compilador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 106666
+Número de páginas escritas('sujas'): 9123
+
+
+Simulação encerrada.
+
+************NRU COMPILADOR.LOG 32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/compilador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 22287
+Número de páginas escritas('sujas'): 441
+
+
+Simulação encerrada.
+
+/****************************** COMPRESSOR ************************************************/
+
+**********************NRU COMPRESSOR.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/compressor.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 1390
+Número de páginas escritas('sujas'): 6
+
+
+Simulação encerrada.
+
+*******************NRU COMPRESSOR.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/compressor.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 255
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+**********************NRU COMPRESSOR.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/compressor.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 255
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+****************NRU COMPRESSOR.LOG  32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/compressor.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 172
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+/****************************** MATRIZ ************************************************/
+
+**********************NRU MATRIZ.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 46204
+Número de páginas escritas('sujas'): 4572
+
+
+Simulação encerrada.
+
+**********************NRU MATRIZ.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 2603
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+**********************NRU MATRIZ.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 137042
+Número de páginas escritas('sujas'): 12474
+
+
+Simulação encerrada.
+
+**********************NRU MATRIZ.LOG 32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/matriz.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 10340
+Número de páginas escritas('sujas'): 580
+
+
+Simulação encerrada.
+
+/****************************** SIMULADOR ************************************************/
+
+**********************NRU SIMULADOR.LOG 8KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 69120
+Número de páginas escritas('sujas'): 9523
+
+
+Simulação encerrada.
+
+**********************NRU SIMULADOR.LOG 8KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 524288
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 8 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 7148
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
+
+**********************NRU SIMULADOR.LOG 32KB 1024KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 1024 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 105346
+Número de páginas escritas('sujas'): 12699
+
+
+Simulação encerrada.
+
+**********************NRU SIMULADOR.LOG 32KB 16384KB
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 131072
+Caminho do arquivo de entrada: logs/simulador.log
+Tamanho da memoria fisica: 16384 KB
+Tamanho das paginas: 32 KB
+Algoritmo de substituicao: NRU
+Número de falta de páginas: 21480
+Número de páginas escritas('sujas'): 2784
+
+
+Simulação encerrada.
 
 
