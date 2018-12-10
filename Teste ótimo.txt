@@ -1,0 +1,31 @@
+Teste ótimo
+
+LRU teste.log 16 160
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 262144
+Caminho do arquivo de entrada: logs/teste.log
+Tamanho da memoria fisica: 160 KB
+Tamanho das paginas: 16 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 14
+Número de páginas escritas('sujas'): 3
+
+
+Simulação encerrada.
+
+NRU teste.log 16 160
+
+Executando o simulador...
+
+O tamanho da tabela de paginas é: 262144
+Caminho do arquivo de entrada: logs/teste.log
+Tamanho da memoria fisica: 160 KB
+Tamanho das paginas: 16 KB
+Algoritmo de substituicao: LRU
+Número de falta de páginas: 12
+Número de páginas escritas('sujas'): 0
+
+
+Simulação encerrada.
